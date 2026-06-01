@@ -1,5 +1,34 @@
 @import "tailwindcss";
 
+/* Acessibilidade: variáveis de cores amigáveis a todos os tipos de daltonismo
+	 Baseadas na paleta Okabe–Ito / Colorbrewer (testada para Protanopia/Deuteranopia/Tritanopia)
+*/
+:root {
+	--bg: #ffffff;
+	--surface: #f5f7f9;
+	--card-bg: #ffffff;
+	--page-bg: #f5f7f9;
+	--text: #111827; /* gray-900 */
+	--muted: #6b7280; /* gray-500 */
+
+	/* Paleta Okabe–Ito (colorblind-safe) */
+	--ci-black: #000000;
+	--ci-orange: #B85A00; 
+	--ci-green: #009E73;
+	--ci-yellow: #F0E442;
+	--ci-blue: #0072B2;
+	--ci-vermillion: #D55E00;
+	--ci-purple: #CC79A7;
+
+	/* Uso semântica: preferências de interface */
+	--accent: var(--ci-blue);
+	--accent-2: var(--ci-orange);
+	--success: var(--ci-green);
+	--warning: var(--ci-yellow);
+	--danger: var(--ci-vermillion);
+	--focus-ring: color-mix(in srgb, var(--accent) 70%, rgba(0,0,0,0.12) 30%);
+}
+
 @layer components {
 	.form-field {
 		@apply flex flex-col gap-1;
@@ -11,19 +40,72 @@
 
 	.form-input {
 		@apply rounded-lg border px-3 py-2 outline-none;
-		@apply focus:ring-2 focus:ring-blue-500;
+		border-color: rgba(17,24,39,0.08);
+		background: var(--bg);
+		color: var(--text);
 	}
 
 	.card {
-		@apply rounded-xl border bg-white p-4 shadow-sm;
+		@apply rounded-xl border p-4 shadow-sm;
+		background: var(--card-bg);
+		color: var(--text);
+	}
+}
+
+@layer base {
+	html,
+	body {
+		background: var(--page-bg);
+		color: var(--text);
+	}
+
+	a {
+		color: var(--accent);
+	}
+}
+
+@layer utilities {
+	.text-gray-500 {
+		color: var(--muted) !important;
+	}
+
+	.border-gray-300 {
+		border-color: rgba(17, 24, 39, 0.16) !important;
+	}
+
+	.bg-white {
+		background-color: var(--card-bg) !important;
+	}
+
+	.hover\:bg-gray-50:hover {
+		background-color: var(--surface) !important;
+	}
+
+	.text-blue-600 {
+		color: var(--accent) !important;
+	}
+
+	.focus-within\:ring-blue-500:focus-within,
+	.focus\:ring-blue-500:focus,
+	.focus\:ring-blue-500:focus-visible {
+		box-shadow: 0 0 0 3px var(--accent) !important;
+		border-color: var(--accent) !important;
 	}
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-	@apply focus-visible:outline-none
-		focus-visible:ring-2
-		focus-visible:ring-blue-500
-		focus-visible:ring-offset-2;
+	outline: none;
+	box-shadow: 0 0 0 3px var(--focus-ring);
+	border-color: var(--accent);
 }
+
+/* Pequenas utilidades para estados usando a paleta segura */
+.badge-accent {
+  background: color-mix(in srgb, var(--accent) 16%, transparent 84%);
+  color: var(--accent);
+}
+.badge-success { background: color-mix(in srgb, var(--success) 16%, transparent 84%); color: var(--success); }
+.badge-warning { background: color-mix(in srgb, var(--warning) 16%, transparent 84%); color: var(--warning); }
+.badge-danger { background: color-mix(in srgb, var(--danger) 16%, transparent 84%); color: var(--danger); }
