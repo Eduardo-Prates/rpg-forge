@@ -75,7 +75,7 @@ src/
 └── routes/                # Rotas da aplicação (SvelteKit)
     ├── +layout.svelte              # Layout principal
     ├── +page.svelte                # Página principal (editor de ficha)
-    └── layout.css                  # Estilos globais
+    └── layout.css                  # Estilos globais com paleta colorblind-safe para atualizações futuras
 ```
 
 ### Fluxo de Dados
@@ -108,6 +108,7 @@ Storage (localStorage)
 ### Desenvolvimento
 - **svelte-check**: Verificação de tipos para componentes Svelte
 - **Tailwind CSS Vite**: Plugin de integração com Vite
+- **scripts/check-contrast.cjs**: Script de verificação de contraste para garantir que a paleta colorblind-safe mantenha boa legibilidade
 
 ## 📦 Tipos de Dados Principais
 
@@ -246,7 +247,8 @@ Este projeto demonstra melhores práticas de acessibilidade:
 - Componentes acessíveis (bits-ui)
 - Estrutura semântica HTML
 - Suporte a navegação por teclado
-- Contraste adequado de cores
+- Contraste adequado de cores com paleta colorblind-safe no `src/routes/layout.css`
+- Verificação de contraste automática via `scripts/check-contrast.cjs`
 - Suporte para leitores de tela
 - Pasta `accessibility/` reservada para expansão de recursos futuros relacionados a acessibilidade
 
